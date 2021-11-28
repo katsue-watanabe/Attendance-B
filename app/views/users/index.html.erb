@@ -7,6 +7,7 @@
     <thead>
       <tr>
         <th><%= User.human_attribute_name :name %></th>
+        <th></th>
         <th class="center"><%= User.human_attribute_name :department %></th>
         <% if current_user.admin? %>
           <th class="center"><%= User.human_attribute_name :basic_time %></th>
@@ -24,6 +25,14 @@
           <% else %>
             <%= user.name %>
           <% end %>
+        </td>
+        <td>
+          <% if current_user.admin? && !current_user?(user)%>
+            <%= link_to "基本情報の編集", edit_basic_info_user_path(user), class: "btn btn-default" %>
+            <%= link_to "削除", user, method: :delete,
+                data: { confirm: "削除してもよろしいですか？" },
+                class: "btn btn-default" %>
+            <% end %>
         </td>
         <td class="center"><%= user.department.present? ? user.department : "未所属" %></td>
         <% if current_user.admin? %>
