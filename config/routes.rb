@@ -5,9 +5,10 @@ Rails.application.routes.draw do
   get    '/login', to: 'sessions#new'
   post   '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  
+
   resources :users do
     member do
+      get 'search' => 'users#search'
       get 'edit_basic_info'
       patch 'update_basic_info'
       get 'attendances/edit_one_month'
